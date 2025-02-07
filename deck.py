@@ -15,6 +15,12 @@ class deck:
 
     def draw(self):
         return self.cards.pop()
+    
+    def sort(self):
+        self.cards.sort()
+
+    def reverse(self):
+        self.cards.reverse()
 
     def __str__(self):
         return f"Deck of {len(self.cards)} cards"
