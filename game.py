@@ -1,16 +1,16 @@
 import random
 
-import deck
-import card
-import player
-import enemy
+from deck import Deck
+from card import Card
+from player import Player
+from enemy import Enemy
 
 
 class Game:
 
     def __init__(self):
         self.player_count = 1
-        self.players = [player.Player(
+        self.players = [Player(
             f"Player {i+1}") for i in range(self.player_count)]
         self.current_player = self.players[0]
         
@@ -20,19 +20,19 @@ class Game:
         
         self.deal_starting_hand(self.players[0])
 
-        self.enemy = enemy.Enemy(self.castle.draw())
+        self.enemy = Enemy(self.castle.draw())
 
     def make_standard_deck(self):
-        d = deck.Deck()
+        d = Deck()
 
-        for suit in card.Card.SUITS:
-            for rank in card.Card.RANKS:
-                d.add_card(card.Card(rank, suit))
+        for suit in Card.SUITS:
+            for rank in Card.RANKS:
+                d.add_card(Card(rank, suit))
 
         return d
 
     def make_castle_deck(self):
-        castle_deck = deck.Deck()
+        castle_deck = Deck()
         face_cards = ["K", "Q", "J"]
 
         for c in self.tavern.cards[:]:

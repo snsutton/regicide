@@ -1,5 +1,4 @@
-import hand
-
+from hand import Hand
 
 class Player:
 
@@ -7,7 +6,7 @@ class Player:
 
     def __init__(self, name):
         self.name = name
-        self.hand = hand.Hand()
+        self.hand = Hand()
 
     def __str__(self):
         return f"{self.name}'s hand:\n{self.hand}"
