@@ -3,12 +3,32 @@ class card:
     RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
     SUITS = ["Clubs", "Diamonds", "Hearts", "Spades"]
 
-    def __init__(self, suit, rank):
-        self.suit = suit
+    SUIT_SYMBOLS = {
+        "Clubs": "♣",
+        "Diamonds": "♦",
+        "Hearts": "♥",
+        "Spades": "♠"
+    }
+
+    def __init__(self, rank, suit):
         self.rank = rank
+        self.suit = suit
 
     def __str__(self):
-        return f"{self.rank} of {self.suit}"
+        r = self.rank if len(self.rank) > 1 else f"{self.rank} "
+        s = self.SUIT_SYMBOLS[self.suit]
+
+        drawing = [
+             "┌─────────┐",
+            f"│ {r}      │",
+            f"│ {s}       │",
+            f"│         │",
+            f"│       {s} │",
+            f"│       {r}│",
+             "└─────────┘"
+        ]
+    
+        return "\n".join(drawing)
 
     def __repr__(self):
         return f"{self.rank} of {self.suit}"
@@ -28,3 +48,6 @@ class card:
         if self_rank_val == other_rank_val:
             return self_suit_val < other_suit_val
         return self_rank_val < other_rank_val
+    
+    def __iter__(self):
+        return iter([self.__str__()])
