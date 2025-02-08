@@ -1,6 +1,7 @@
 import random
 
-class deck:
+
+class Deck:
     def __init__(self):
         self.cards = []
 
@@ -15,7 +16,7 @@ class deck:
 
     def draw(self):
         return self.cards.pop()
-    
+
     def sort(self):
         self.cards.sort()
 
@@ -27,3 +28,6 @@ class deck:
 
     def __repr__(self):
         return f"Deck of {len(self.cards)} cards"
+    
+    def __len__(self):
+        return len(self.cards)

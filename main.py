@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 
 import game
-import card
-import player
 
 def main():
-    g = game.game()
-    print(g.players[0].hand)
+    g = game.Game()
+    print(g)
 
     return 0
 
