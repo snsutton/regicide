@@ -17,6 +17,8 @@ class Card:
     def __init__(self, rank, suit):
         self.rank = rank
         self.suit = suit
+        self.x = 0
+        self.y = 0
 
     def __str__(self):
         r = self.rank if len(self.rank) > 1 else f"{self.rank} "
@@ -55,10 +57,18 @@ class Card:
 
     def __iter__(self):
         return iter([self.__str__()])
+    
+    def pos(self):
+        return (self.x, self.y)
 
 
 class CardRenderer(BaseRenderer):
-        
+
+    def __init__(self, screen):
+        super().__init__(screen)
+        self.x = 0
+        self.y = 0
+
     def draw_rounded_rect(self, surface, rect, color, radius=10):
         """Draw a rounded rectangle"""
         pygame.draw.rect(surface, color, rect, border_radius=radius)
@@ -101,3 +111,81 @@ class CardRenderer(BaseRenderer):
             self.screen.blit(bottom_rank, (x + self.CARD_WIDTH - 25, y + self.CARD_HEIGHT - 40))
 
         self.screen.blit(bottom_suit, (x + self.CARD_WIDTH - 25, y + self.CARD_HEIGHT - 70))
+
+    def get_card_position(self, card):
+        """Return the position of a card"""
+        return card.pos()
+
+
+class CardInputHandler:
+
+    def __init__(self, card_renderer):
+        self.renderer = card_renderer
+        # Keep track of clicked card
+        self.selected_card = None
+        # Store which cards are being hovered
+        self.hovered_card = None
+    
+    def is_point_inside_card(self, point, card_pos):
+        """Check if a point (x,y) is inside a card's rectangle"""
+        x, y = point
+        card_x, card_y = card_pos
+        
+        # Get card dimensions from renderer
+        width = self.renderer.CARD_WIDTH
+        height = self.renderer.CARD_HEIGHT
+        
+        # Check if point is within card boundaries
+        return (card_x <= x <= card_x + width and 
+                card_y <= y <= card_y + height)
+    
+    def handle_mouse_event(self, event, cards):
+        """Handle mouse events for a list of cards
+        Returns the clicked card (if any) and event type"""
+        
+        mouse_pos = pygame.mouse.get_pos()
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # Check each card for clicks
+            for c in cards:
+                card_pos = self.renderer.get_card_position(c)
+                if self.is_point_inside_card(mouse_pos, card_pos):
+                    self.selected_card = c
+                    return {'type': 'card_clicked', 
+                           'card': c, 
+                           'position': mouse_pos}
+            
+            # If we get here, no card was clicked
+            self.selected_card = None
+            return {'type': 'background_clicked', 
+                   'position': mouse_pos}
+            
+        elif event.type == pygame.MOUSEBUTTONUP:
+            # Handle card release
+            if self.selected_card:
+                old_card = self.selected_card
+                self.selected_card = None
+                return {'type': 'card_released', 
+                       'card': old_card, 
+                       'position': mouse_pos}
+                
+        elif event.type == pygame.MOUSEMOTION:
+            # Check for hovering over cards
+            for c in cards:
+                card_pos = self.renderer.get_card_position(c)
+                if self.is_point_inside_card(mouse_pos, card_pos):
+                    if self.hovered_card != c:
+                        self.hovered_card = c
+                        return {'type': 'card_hover_start', 
+                               'card': c, 
+                               'position': mouse_pos}
+                    break
+            else:  # No card being hovered
+                if self.hovered_card:
+                    old_card = self.hovered_card
+                    self.hovered_card = None
+                    return {'type': 'card_hover_end', 
+                           'card': old_card, 
+                           'position': mouse_pos}
+        
+        return None

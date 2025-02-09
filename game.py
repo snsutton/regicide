@@ -81,3 +81,6 @@ class GameRenderer(BaseRenderer):
 
         discard_text = self.font.render(f"Discard: {len(game.discard)}", True, self.WHITE)
         self.screen.blit(discard_text, (10, 110))
+
+        enemy_health = self.font.render(f"Enemy Health: {game.enemy.health_remaining}/{game.enemy.starting_health}", True, self.WHITE)
+        self.screen.blit(enemy_health, (10, 160))

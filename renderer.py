@@ -2,6 +2,9 @@ import pygame
 
 class BaseRenderer:
 
+    CARD_WIDTH = 100
+    CARD_HEIGHT = 140
+
     def __init__(self, screen):
         self.screen = screen
     
@@ -11,8 +14,8 @@ class BaseRenderer:
         self.RED = (255, 0, 0)
         
         # Card dimensions
-        self.CARD_WIDTH = 100
-        self.CARD_HEIGHT = 140
+        self.CARD_WIDTH = BaseRenderer.CARD_WIDTH
+        self.CARD_HEIGHT = BaseRenderer.CARD_HEIGHT
         self.CORNER_RADIUS = 10
         
         # Symbol mappings
