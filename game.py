@@ -4,6 +4,7 @@ from deck import Deck
 from card import Card
 from player import Player
 from enemy import Enemy
+from renderer import BaseRenderer
 
 
 class Game:
@@ -17,6 +18,7 @@ class Game:
         self.tavern = self.make_standard_deck()
         self.castle = self.make_castle_deck()
         self.tavern.shuffle()
+        self.discard = Deck()
         
         self.deal_starting_hand(self.players[0])
 
@@ -59,7 +61,23 @@ class Game:
         
         game_state.append(f"Tavern: {len(self.tavern)}")
         game_state.append(f"Castle: {len(self.castle)}")
+        game_state.append(f"Discard: {len(self.discard)}")
         game_state.append(self.enemy.__str__())
         game_state.append(self.current_player.__str__())
 
         return "\n".join(game_state)
+    
+    def __iter__(self):
+        return iter([self.__str__()])
+    
+class GameRenderer(BaseRenderer):
+
+    def draw_game(self, game):
+        castle_text = self.font.render(f"Castle: {len(game.castle)}", True, self.WHITE)
+        self.screen.blit(castle_text, (10, 10))
+
+        tavern_text = self.font.render(f"Tavern: {len(game.tavern)}", True, self.WHITE)
+        self.screen.blit(tavern_text, (10, 60))
+
+        discard_text = self.font.render(f"Discard: {len(game.discard)}", True, self.WHITE)
+        self.screen.blit(discard_text, (10, 110))

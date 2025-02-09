@@ -1,6 +1,9 @@
-class Enemy:
+from card import Card
+
+class Enemy(Card):
 
     def __init__(self, enemy_card):
+        super().__init__(enemy_card.rank, enemy_card.suit)
         self.enemy = enemy_card
         self.health = 0
 

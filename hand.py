@@ -12,3 +12,16 @@ class Hand:
 
     def __repr__(self):
         return f"Hand of {len(self.hand)} cards"
+    
+    def __iter__(self):
+        return iter(self.hand)
+    
+    def __len__(self):
+        return len(self.hand)
+    
+    def __getitem__(self, index):
+        return self.hand[index]
+    
+    def sort(self):
+        self.hand.sort()
+        self.hand.reverse()
