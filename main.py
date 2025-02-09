@@ -50,6 +50,14 @@ def pygame_setup(g):
 
         # Draw player hand
         for i, card in enumerate(cards):
+            # Highlight hovered/selected cards
+            if card == input_handler.hovered_card:
+                # TODO: Draw highlight effect here
+                pass
+            if card == input_handler.selected_card:
+                # TODO: Draw selection effect here
+                pass
+
             card.x = 50 + i * 120
             card.y = screen.get_height() - 200
             card_renderer.draw_card(card, card.x, card.y)
