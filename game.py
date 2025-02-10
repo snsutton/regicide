@@ -1,10 +1,12 @@
 import random
+import pygame
 
 from deck import Deck
 from card import Card
 from player import Player
 from enemy import Enemy
 from renderer import BaseRenderer
+from button import Button
 
 
 class Game:
@@ -19,10 +21,13 @@ class Game:
         self.castle = self.make_castle_deck()
         self.tavern.shuffle()
         self.discard = Deck()
-        
-        self.deal_starting_hand(self.players[0])
-
         self.enemy = Enemy(self.castle.draw())
+        self.yield_button = Button("Yield", 10, 210, 100, 50)
+
+        self.jester_red = Card("Jester", "Red")
+        self.jester_black = Card("Jester", "Black")
+
+        self.deal_starting_hand(self.players[0])
 
     def make_standard_deck(self):
         d = Deck()
@@ -71,6 +76,9 @@ class Game:
         return iter([self.__str__()])
     
 class GameRenderer(BaseRenderer):
+
+    def __init__(self, screen):
+        super().__init__(screen)
 
     def draw_game(self, game):
         castle_text = self.font.render(f"Castle: {len(game.castle)}", True, self.WHITE)

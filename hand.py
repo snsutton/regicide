@@ -25,3 +25,6 @@ class Hand:
     def sort(self):
         self.hand.sort()
         self.hand.reverse()
+
+    def remove(self, card):
+        self.hand.remove(card)
