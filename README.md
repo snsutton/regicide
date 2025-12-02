@@ -1,23 +1,45 @@
 # Regicide
 
-Regicide is a cooperative, fantasy card game for 1 to 4 players, with a standard deck of playing cards.
+A cooperative card game for 1-4 players, implemented as a text-based networked application.
 
-Recruit heroes, storm the castle, and defeat the corrupted monarchy!
+> Regicide is designed by [Badgers from Mars](https://www.regicidegame.com/). This is an unofficial implementation for personal/educational use.
 
-Badgers from Mars has been publishing this game in other forms. You should check out their website:
-https://www.regicidegame.com/
+## Project Goals
 
-They also host a free PDF for download that explains the rules of the game:
-https://www.regicidegame.com/site_files/33132/upload_files/RegicideRulesA4.pdf?dl=1
+Build a text-based Regicide implementation supporting:
+- **Solo play**
+- **Local network multiplayer** (2 players on same LAN)
+- **Remote multiplayer** (2 players over internet, self-hosted)
 
-## Regicide Pygame Implementation
+## Documentation
 
-This repo aims to implement Regicide using [Pygame](https://www.pygame.org/news).
+- [RULES.md](RULES.md) - Complete game rules reference
+- [ROADMAP.md](ROADMAP.md) - Development phases and architecture
+- [AGENTS.md](AGENTS.md) - AI-assisted development workflow
 
-Roadmap:
-* ~~Basic visualization~~
-* ~~Basic mouse input~~
-* Basic game logic & Solo Mode
-* Two Player Mode
-* Three and Four Player Modes
-* Networked Remote Player
+## Project Status
+
+**In Development** - Architecture planning phase
+
+### Roadmap
+
+- [ ] Technology & architecture selection
+- [ ] Core game engine (rules, state management)
+- [ ] Text-based UI (terminal interface)
+- [ ] Local 2-player mode
+- [ ] Network protocol design
+- [ ] LAN multiplayer
+- [ ] Remote multiplayer (self-hosted server)
+
+## Archive
+
+Previous Pygame implementation preserved in `archive/pygame_v1/`.
+
+## License
+
+MIT License - See [LICENSE](LICENSE)
+
+## Credits
+
+- Game design: [Badgers from Mars](https://www.regicidegame.com/)
+- Implementation: This repository
